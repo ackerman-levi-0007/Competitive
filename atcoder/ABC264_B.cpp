@@ -45,29 +45,35 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int n, k; 
-    cin >> n >> k;
-    int arr[n];
-    map<int, int> mn, mx;
-    for(int i=0 ; i<n ; i++){
-    	cin >> arr[i];
-    	if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-    	mx[arr[i]] = i;
+    int arr[15][15];
+    F0R(i,15){
+    	arr[0][i] = 1;
+    	arr[i][0] = 1;
+    	arr[14][i] = 1;
+    	arr[i][14] = 1;
     }
-    for(int i=0 ; i<n ; i++){
-        if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-        mx[arr[i]] = i;
+    FOR(i,2,13){
+    	arr[2][i] = 1;
+    	arr[i][2] = 1;
+    	arr[12][i] = 1;
+    	arr[i][12] = 1;
     }
-    for(int i=0 ; i<k ; i++){
-    	int a, b;
-    	cin >> a >> b;
-    	if(mn.find(a) != mn.end() && mn.find(b) != mn.end()){
-    		if(mn[a] <= mx[b]) cout<<"YES\n";
-    		else cout<<"NO\n";
-    	}
-    	else cout << "NO\n";
+    FOR(i,4,11){
+    	arr[4][i] = 1;
+    	arr[i][4] = 1;
+    	arr[10][i] = 1;
+    	arr[i][10] = 1;
     }
-    	
+    FOR(i,6,9){
+    	arr[6][i] = 1;
+    	arr[i][6] = 1;
+    	arr[8][i] = 1;
+    	arr[i][8] = 1;
+    }
+    int c, r;
+    cin >> c >> r;
+    if(arr[c-1][r-1] == 1) cout<<"black\n";
+    else cout<<"white\n";
 }
 
 int main() {
@@ -78,7 +84,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }

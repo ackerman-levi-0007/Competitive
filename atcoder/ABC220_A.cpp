@@ -47,7 +47,7 @@ void solve() {
 	ll a, b, c;
 	cin >> a >> b >> c;
 	for(ll i=a ; i<=b ; i++){
-		if(i%c == 0 || c%i == 0){
+		if(i%c == 0){
 			cout << i << endl;
 			return;
 		}

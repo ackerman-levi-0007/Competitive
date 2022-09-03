@@ -45,29 +45,21 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int n, k; 
-    cin >> n >> k;
-    int arr[n];
-    map<int, int> mn, mx;
-    for(int i=0 ; i<n ; i++){
-    	cin >> arr[i];
-    	if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-    	mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<n ; i++){
-        if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-        mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<k ; i++){
-    	int a, b;
-    	cin >> a >> b;
-    	if(mn.find(a) != mn.end() && mn.find(b) != mn.end()){
-    		if(mn[a] <= mx[b]) cout<<"YES\n";
-    		else cout<<"NO\n";
+    string s="atcoder";
+    string giv;
+    cin >> giv;
+    int i=0, j=0, result=0;
+    while(i<7){
+    	j=i;
+    	while(s[j] != giv[i]) j++;
+    	while(i<j){
+    		swap(s[j], s[j-1]);
+    		j--;
+    		result++;
     	}
-    	else cout << "NO\n";
+    	i++;
     }
-    	
+    cout << result << "\n";
 }
 
 int main() {
@@ -78,7 +70,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }

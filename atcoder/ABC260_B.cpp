@@ -45,29 +45,62 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int n, k; 
-    cin >> n >> k;
-    int arr[n];
-    map<int, int> mn, mx;
-    for(int i=0 ; i<n ; i++){
-    	cin >> arr[i];
-    	if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-    	mx[arr[i]] = i;
+    int n, x, y, z;
+    cin >> n >> x >> y >> z;
+    int math[n], eng[n], tot[n];
+    vector<bool> ans(n, false);
+    F0R(i,n){
+    	cin >> math[i];
     }
-    for(int i=0 ; i<n ; i++){
-        if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-        mx[arr[i]] = i;
+    F0R(i,n){
+    	cin >> eng[i];
+    	tot[i] = math[i]+eng[i];
     }
-    for(int i=0 ; i<k ; i++){
-    	int a, b;
-    	cin >> a >> b;
-    	if(mn.find(a) != mn.end() && mn.find(b) != mn.end()){
-    		if(mn[a] <= mx[b]) cout<<"YES\n";
-    		else cout<<"NO\n";
+    F0R(i,x){
+    	int a = 0, an = -1;
+    	R0F(j,n){
+    		if(ans[j] == false){
+    			if(a <= math[j]){
+    				a=math[j];
+    				an=j;
+    			}
+    		}
     	}
-    	else cout << "NO\n";
+    	if(an != -1){
+    		ans[an] = true;
+    	}
     }
-    	
+    F0R(i,y){
+    	int a = 0, an = -1;
+    	R0F(j,n){
+    		if(ans[j] == false){
+    			if(a <= eng[j]){
+    				a=eng[j];
+    				an=j;
+    			}
+    		}
+    	}
+    	if(an != -1){
+    		ans[an] = true;
+    	}
+    }
+    F0R(i,z){
+    	int a = 0, an = -1;
+    	R0F(j,n){
+    		if(ans[j] == false){
+    			if(a <= tot[j]){
+    				a=tot[j];
+    				an=j;
+    			}
+    		}
+    	}
+    	if(an != -1){
+    		ans[an] = true;
+    	}
+    }
+    F0R(i,n){
+    	if(ans[i]) cout<<i+1<<"\n";
+    }
 }
 
 int main() {
@@ -78,7 +111,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }

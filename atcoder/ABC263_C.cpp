@@ -42,32 +42,28 @@ const int N = 1e5 + 10 , mod =  1000000007;
 ll cdiv(ll a, ll b) { return a / b + ((a ^ b) > 0 && a % b); } // divide a by b rounded up
 ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b rounded down
 
+void fun(vector<vector<int>>& ans, vector<int> x, int n, int m, int i){
+	if(n == 0){
+		ans.pb(x);
+		return;
+	}
+	for(;i<=m;i++){
+		x.pb(i);
+		fun(ans, x, n-1, m, i+1);
+		x.pop_back();
+	}
+}
 
 void solve() {
 
-    int n, k; 
-    cin >> n >> k;
-    int arr[n];
-    map<int, int> mn, mx;
-    for(int i=0 ; i<n ; i++){
-    	cin >> arr[i];
-    	if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-    	mx[arr[i]] = i;
+    int n, m ; cin >> n >> m;
+    vector<vector<int>> ans;
+    vector<int> x;
+    fun(ans, x, n, m, 1);
+    for(int i=0 ; i<sz(ans) ; i++){
+    	for(int j=0 ; j<n ; j++) cout<<ans[i][j]<<" ";
+    	cout<<"\n";
     }
-    for(int i=0 ; i<n ; i++){
-        if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-        mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<k ; i++){
-    	int a, b;
-    	cin >> a >> b;
-    	if(mn.find(a) != mn.end() && mn.find(b) != mn.end()){
-    		if(mn[a] <= mx[b]) cout<<"YES\n";
-    		else cout<<"NO\n";
-    	}
-    	else cout << "NO\n";
-    }
-    	
 }
 
 int main() {
@@ -78,7 +74,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }

@@ -47,33 +47,55 @@ void solve() {
 
     string a, b;
     cin >> a >> b;
-    long long int i=0, j=0;
-    while(i<sz(a) && j<sz(b)){
-    	if(a[i] == b[j]){
-    		if(a[i] == a[i+1] && b[j] == b[j+1]){
-    			while(i<sz(a) && a[i] == b[j]){
-    				i++;
-    			}
-    			while(j<sz(b) && b[j] == a[i-1]){
-    				j++;
-    			}
-    		}
-    		else if(a[i] != a[i+1] && b[j] != b[j+1]){
-    			i++;
-    			j++;
-    		}
-    		else{
-    			cout<<"No\n";
-    			return;
-    		}
-    	}
-    	else{
-    		cout<<"No\n";
-    		return;
-    	}
+    vector<pair<char,int>> vec1, vec2;
+    char ch = ' ';
+    int x = 0;
+    F0R(i,sz(a)){
+        if(ch != a[i]){
+            if(ch == ' '){
+                ch = a[i];
+            }
+            else{
+                vec1.pb({ch,x});
+                x=0;
+                ch = a[i];
+            }
+        }
+        x++;
     }
-    if(i!=sz(a) || j!=sz(b)) cout<<"No\n";
-    else cout<<"Yes\n";
+    vec1.pb({ch,x});
+    ch = ' '; x = 0;
+    F0R(i,sz(b)){
+        if(ch != b[i]){
+            if(ch == ' '){
+                ch = b[i];
+            }
+            else{
+                vec2.pb({ch,x});
+                x = 0;
+                ch = b[i];
+            }
+        }
+        x++;
+    }
+    vec2.pb({ch,x});
+    if(sz(vec1) != sz(vec2)) cout<<"No\n";
+    else{
+        F0R(i,sz(vec1)){
+            if(vec1[i].ff == vec2[i].ff){
+                if(vec1[i].ss == vec2[i].ss || ( vec1[i].ss < vec2[i].ss && vec1[i].ss >= 2)) continue;
+                else{
+                    cout<<"No\n";
+                    return;
+                }
+            }
+            else{
+                cout << "No\n";
+                return;
+            }
+        }
+        cout << "Yes\n";
+    }
 }
 
 int main() {

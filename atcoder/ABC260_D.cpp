@@ -45,29 +45,47 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int n, k; 
+    int k, n;
     cin >> n >> k;
-    int arr[n];
-    map<int, int> mn, mx;
-    for(int i=0 ; i<n ; i++){
-    	cin >> arr[i];
-    	if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-    	mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<n ; i++){
-        if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-        mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<k ; i++){
-    	int a, b;
-    	cin >> a >> b;
-    	if(mn.find(a) != mn.end() && mn.find(b) != mn.end()){
-    		if(mn[a] <= mx[b]) cout<<"YES\n";
-    		else cout<<"NO\n";
+    int p[n];
+    F0R(i,n) cin >> p[i];
+    int ans[n+1] ={0};
+    vector<stack<int>> vis;
+    F0R(i,n){
+    	int x=-1, an=p[i];
+    	F0R(j,sz(vis)){
+    		if(sz(vis[j]) == 0) continue;
+    		if(vis[j].top() >= p[i]){
+    			if(x==-1 || vis[j].top() < an){
+    				an = vis[j].top();
+    				x=j;
+    			}
+    		}
     	}
-    	else cout << "NO\n";
-    }
+
+    	if(x == -1){
+    		vis.pb({});
+    		x = sz(vis)-1;
+    		vis[x].push(p[i]);
+    	}
+    	else{
+    		vis[x].push(p[i]);
+    	}
     	
+    	if(sz(vis[x]) == k){
+    		while(!vis[x].empty()){
+    			int y=vis[x].top();
+    			ans[y] = i+1;
+    			vis[x].pop();
+    		}
+    	}
+    }
+    FOR(i,1,n+1){
+    	if(ans[i] == 0) cout<<"-1\n";
+    	else{
+    		cout<<ans[i]<<"\n";
+    	}
+    }
 }
 
 int main() {
@@ -78,7 +96,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }

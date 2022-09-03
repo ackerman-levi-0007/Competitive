@@ -45,29 +45,42 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int n, k; 
-    cin >> n >> k;
-    int arr[n];
-    map<int, int> mn, mx;
-    for(int i=0 ; i<n ; i++){
-    	cin >> arr[i];
-    	if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-    	mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<n ; i++){
-        if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-        mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<k ; i++){
-    	int a, b;
-    	cin >> a >> b;
-    	if(mn.find(a) != mn.end() && mn.find(b) != mn.end()){
-    		if(mn[a] <= mx[b]) cout<<"YES\n";
-    		else cout<<"NO\n";
+    int n ; cin >> n;
+    char arr[n][n];
+    F0R(i,n){
+    	F0R(j,n){
+    		cin >> arr[i][j];
     	}
-    	else cout << "NO\n";
     }
-    	
+    bool ans = true;
+    F0R(i,n){
+    	F0R(j,n){
+    		if(i==j) continue;
+    		else{
+    			if(arr[i][j] == 'W'){
+    				if(arr[j][i] != 'L'){
+    					ans = false;
+    					break;
+    				}    				
+    			}
+    			else if(arr[i][j] == 'L'){
+    				if(arr[j][i] != 'W'){
+    					ans = false;
+    					break;
+    				}    				
+    			}
+    			else{
+    				if(arr[i][j] != arr[j][i]){
+    					ans = false;
+    					break;
+    				}
+    			}
+    		}
+    	}
+    	if(!ans) break;
+    }
+    if(ans) cout<<"correct\n";
+    else cout<<"incorrect\n";
 }
 
 int main() {
@@ -78,7 +91,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }

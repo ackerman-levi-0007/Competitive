@@ -45,29 +45,33 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int n, k; 
-    cin >> n >> k;
-    int arr[n];
-    map<int, int> mn, mx;
-    for(int i=0 ; i<n ; i++){
-    	cin >> arr[i];
-    	if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-    	mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<n ; i++){
-        if(mn.find(arr[i]) == mn.end()) mn[arr[i]] = i;
-        mx[arr[i]] = i;
-    }
-    for(int i=0 ; i<k ; i++){
+    int n , m; cin >> n >> m;
+    vector<vector<bool>> vec(n+1, vector<bool>(n+1, false));
+    F0R(i,m){
     	int a, b;
     	cin >> a >> b;
-    	if(mn.find(a) != mn.end() && mn.find(b) != mn.end()){
-    		if(mn[a] <= mx[b]) cout<<"YES\n";
-    		else cout<<"NO\n";
-    	}
-    	else cout << "NO\n";
+    	vec[a][b] = true;
+    	vec[b][a] = true;
     }
-    	
+    int ans = 0;
+    set<tuple<int, int, int> > setOfTuples;
+    FOR(i,1,n+1){
+    	FOR(j,i,n+1){
+    		FOR(z,1,n+1){
+    			if(vec[i][j] && vec[j][z] && vec[z][i]){
+    				vector<int> v(3,0);
+    				v[0] = i;
+    				v[1] = j;
+    				v[2] = z;
+    				sor(v);
+    				tuple<int, int, int> tuple1;
+    				tuple1 = make_tuple(v[0], v[1], v[2]);
+    				setOfTuples.insert(tuple1);
+    			}
+    		}
+    	}
+    }
+    cout << setOfTuples.size() <<"\n";
 }
 
 int main() {
@@ -78,7 +82,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    cin >> t;
+    //cin >> t;
     while (t--) {
         solve();
     }
