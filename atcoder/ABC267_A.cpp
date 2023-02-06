@@ -45,45 +45,17 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
+    string s;
+    cin >> s;
 
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
-    		}
-    	}
-    }
-    FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
-    	else{
-    		cout<<ans[i]<<"\n";
-    	}
-    }
+    if(s == "Monday") cout << "5\n";
+    if(s == "Tuesday") cout << "4\n";
+    if(s == "Wednesday") cout << "3\n";
+    if(s == "Thursday") cout << "2\n";
+    if(s == "Friday") cout << "1\n";
+
+
+
 }
 
 int main() {

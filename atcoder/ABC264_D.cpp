@@ -48,18 +48,18 @@ void solve() {
     string s="atcoder";
     string giv;
     cin >> giv;
-    int i=0, j=0, result=0;
+    int i=0, j=0, ans=0;
     while(i<7){
     	j=i;
     	while(s[j] != giv[i]) j++;
     	while(i<j){
     		swap(s[j], s[j-1]);
     		j--;
-    		result++;
+    		ans++;
     	}
     	i++;
     }
-    cout << result << "\n";
+    cout << ans << "\n";
 }
 
 int main() {

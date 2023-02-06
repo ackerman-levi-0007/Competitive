@@ -42,48 +42,35 @@ const int N = 1e5 + 10 , mod =  1000000007;
 ll cdiv(ll a, ll b) { return a / b + ((a ^ b) > 0 && a % b); } // divide a by b rounded up
 ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b rounded down
 
-
+bool check()
 void solve() {
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
+    int h1, w1;
+    cin >> h1 >> w1;
+    ll arr1[h1][w1];
+    F0R(i,h1){
+    	F0R(j,w1) cin >> arr1[h1][w1];
+    }
 
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
+    int h2, w2;
+    cin >> h2 >> w2;
+    ll arr2[h2][w2];
+    F0R(i,h2){
+    	F0R(j,w2) cin >> arr2[h2][w2];
+    }
+
+    bool ans = false;
+    F0R(i,h1){
+    	F0R(j,w1){
+    		if(arr1[i][j] == arr2[0][0] && h1-i-1 >= h2 && w1-j-1 >= w2){
+    			ans = check()
     		}
+    		if(ans) break;
     	}
+    	if(ans) break;
     }
-    FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
-    	else{
-    		cout<<ans[i]<<"\n";
-    	}
-    }
+    if(ans) cout<<"Yes\n";
+    else cout<<"No\n";
 }
 
 int main() {

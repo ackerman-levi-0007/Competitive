@@ -45,45 +45,38 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
+    int n, m ; cin >> n >> m;
+    int arr[n+1][n+1] = {0};
 
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
+    F0R(i,m){
+    	int k;
+    	cin >> k;
+    	int temp[k] = {0};
+    	F0R(j,k) cin >> temp[j];
+    	FOR(j,0,k){
+    		FOR(z,j+1,k){
+    			arr[temp[j]][temp[z]] = 1;
+    			arr[temp[z]][temp[j]] = 1;
     		}
     	}
     }
+
+    bool flag = true;
+
     FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
-    	else{
-    		cout<<ans[i]<<"\n";
+    	FOR(j,1,n+1){
+    		if(i==j) continue;
+    		if(arr[i][j] != 1 || arr[j][i] != 1){
+    			flag = false;
+    			break;
+    		}
     	}
+    	if(!flag) break;
     }
+
+    if(flag) cout << "Yes\n";
+    else cout<<"No\n";
+
 }
 
 int main() {

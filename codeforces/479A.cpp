@@ -44,50 +44,19 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 
 void solve() {
+	int a, b, c, ans = 0;
+	cin >> a >> b >> c;
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
+	if(a==1 && c==1) ans = a+b+c;
+	else if(a==1 || (b==1 && a<=c)) ans = (a+b)*c;
+	else if(c==1 || (b==1 && a>c)) ans = a*(b+c);
+	else ans = a*b*c;
 
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
-    		}
-    	}
-    }
-    FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
-    	else{
-    		cout<<ans[i]<<"\n";
-    	}
-    }
+	cout << ans << "\n";
 }
 
 int main() {
-    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
     // time_t start , end;
 

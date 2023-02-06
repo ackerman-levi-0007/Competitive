@@ -42,48 +42,46 @@ const int N = 1e5 + 10 , mod =  1000000007;
 ll cdiv(ll a, ll b) { return a / b + ((a ^ b) > 0 && a % b); } // divide a by b rounded up
 ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b rounded down
 
+void check(int a, int b, int x, int y, vector<vector<bool>> visit, bool& ans, bool& fans, int count){
+	if(ans) return;
+	visit[a][b] = true;
+	if(a==x && b==y){
+		ans = true;
+		if(count <= 100){
+			if(count%2 == 0) fans = true;
+		}
+		return;
+	}
+	if(b+1<8){
+		if(a+2<8 && !visit[a+2][b+1]) check(a+2, b+1, x, y, visit, ans, fans, count+1);
+		if(a-2>=0 && !visit[a-2][b+1]) check(a-2, b+1, x, y, visit, ans, fans, count+1);
+	}
+	if(b-1>=0){
+		if(a+2<8 && !visit[a+2][b-1]) check(a+2, b-1, x, y, visit, ans, fans, count+1);
+		if(a-2>=0 && !visit[a-2][b-1]) check(a-2, b-1, x, y, visit, ans, fans, count+1);
+	}
+	if(a+1<8){
+		if(b+2<8 && !visit[a+1][b+2]) check(a+1, b+2, x, y, visit, ans, fans, count+1);
+		if(b-2>=0 && !visit[a+1][b-2]) check(a+1, b-2, x, y, visit, ans, fans, count+1);
+	}
+	if(a-1>=0){
+		if(b+2<8 && !visit[a-1][b+2]) check(a-1, b+2, x, y, visit, ans, fans, count+1);
+		if(b-2>=0 && !visit[a-1][b-2]) check(a-1, b-2, x, y, visit, ans, fans, count+1);
+	}
+}
 
 void solve() {
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
+    int a, b, x, y;
+    cin >> a >> b >> x >> y;
+    a--; b--; x--; y--;
+    vector<vector<bool>> visit(8, vector<bool>(8, false));
+    bool ans = false, fans = false;
+    int count = 0;
+    check(a, b, x, y, visit, ans, fans, count);
+    if(fans) cout<<"YES\n";
+    else cout<<"NO\n";
 
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
-    		}
-    	}
-    }
-    FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
-    	else{
-    		cout<<ans[i]<<"\n";
-    	}
-    }
 }
 
 int main() {
@@ -94,7 +92,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    //cin >> t;
+    cin >> t;
     while (t--) {
         solve();
     }

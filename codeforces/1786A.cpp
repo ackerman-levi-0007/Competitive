@@ -45,45 +45,38 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
-
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
+    ll n;
+    cin >> n;
+    ll alice = 0, bob = 0;
+    ll i=1, z=0;
+    alice++;
+    n--;
+    i++;
+    while(n>0){
+    	if(z%2 == 0){
+    		if(n >= (2*i)+1){
+    			bob += (2*i)+1;
+    			n -= (2*i)+1;
+    		}
+    		else{
+    			bob += n;
+    			break;
     		}
     	}
-    }
-    FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
     	else{
-    		cout<<ans[i]<<"\n";
+    		if(n >= (2*i)+1){
+    			alice += (2*i)+1;
+    			n -= (2*i)+1;
+    		}
+    		else{
+    			alice += n;
+    			break;
+    		}
     	}
+    	i = i+2;
+    	z++;
     }
+    cout<< alice << " " << bob <<"\n";
 }
 
 int main() {
@@ -94,7 +87,7 @@ int main() {
     // time(&start);
 
     int t = 1;
-    //cin >> t;
+    cin >> t;
     while (t--) {
         solve();
     }

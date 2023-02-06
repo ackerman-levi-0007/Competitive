@@ -45,45 +45,42 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
-
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
+    string s;
+    cin >> s;
+    int arr[7]={0};
+    if(s[0] != '0') arr[3] = 1;
+    if(s[1] != '0') arr[2] = 1;
+    if(s[2] != '0') arr[4] = 1;
+    if(s[3] != '0') arr[1] = 1;
+    if(s[4] != '0') arr[3] = 1;
+    if(s[5] != '0') arr[5] = 1;
+    if(s[6] != '0') arr[0] = 1;
+    if(s[7] != '0') arr[2] = 1;
+    if(s[8] != '0') arr[4] = 1;
+    if(s[9] != '0') arr[6] = 1;
+    bool ans = false;
+    if(s[0] == '0'){
+    	for(int i=0 ; i<7 ; i++){
+    		if(arr[i] == 0) continue;
+    		for(int j=i+2 ; j<7 ; j++){
+    			if(arr[j] == 0) continue;
+    			bool x=true;
+    			for(int z=i+1 ; z<j ; z++){
+    				if(arr[z] != 0){
+    					x=false;
+    					break;
+    				}
+    			}
+    			if(x){
+    				ans = true;
+    				break;
+    			}
     		}
+    		if(ans) break;
     	}
     }
-    FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
-    	else{
-    		cout<<ans[i]<<"\n";
-    	}
-    }
+    if(ans) cout<<"Yes\n";
+    else cout<<"No\n";
 }
 
 int main() {

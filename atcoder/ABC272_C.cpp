@@ -45,45 +45,34 @@ ll fdiv(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); } // divide a by b 
 
 void solve() {
 
-    int k, n;
-    cin >> n >> k;
-    int p[n];
-    F0R(i,n) cin >> p[i];
-    int ans[n+1] ={0};
-    vector<stack<int>> vis;
-    int ninindex = -1, minval = 0;
-    F0R(i,n){
-    	int x=-1, an=p[i];
-    	if(mindex != -1){
-    		if(p[i] <= minval)
-    	}
+   ll n;
+   cin >> n;
+   vector<ll> arr(n,0);
+   for (ll i=0 ; i<n ; i++) cin >> arr[i];
+   sor(arr);
+   ll minodd = -1, maxodd = -1, mineven = -1, maxeven = -1, ans = -1;
 
-    	if(x == -1){
-    		vis.pb({});
-    		x = sz(vis)-1;
-    		vis[x].push(p[i]);    		
-    	}
-    	else{
-    		vis[x].push(p[i]);
-    	}
-    	if(mindex == -1 || minval >= p[i]){
-    		minindex = x;
-    		minval = p[i];
-    	}
-    	if(sz(vis[x]) == k){
-    		while(!vis[x].empty()){
-    			int y=vis[x].top();
-    			ans[y] = i+1;
-    			vis[x].pop();
-    		}
-    	}
-    }
-    FOR(i,1,n+1){
-    	if(ans[i] == 0) cout<<"-1\n";
-    	else{
-    		cout<<ans[i]<<"\n";
-    	}
-    }
+   for(ll i=0 ; i<n ; i++){
+   		if(arr[i]%2 == 0){
+   			if(maxeven == -1) maxeven = arr[i];
+   			else{
+   				mineven = maxeven;
+   				maxeven = arr[i];
+   				ans = max(ans, mineven+maxeven);
+   			}
+   		}
+   		else{
+   			if(maxodd == -1) maxodd = arr[i];
+   			else{
+   				minodd = maxodd;
+   				maxodd = arr[i];
+   				ans = max(ans, minodd+maxodd);
+   			}
+   		}
+   }
+
+   cout << ans  << "\n";
+
 }
 
 int main() {
